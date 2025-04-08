@@ -4,10 +4,12 @@ import { DataTable } from "@/components/data-table";
 import { SectionCards } from "@/components/section-cards";
 import { SiteHeader } from "@/components/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-
+import { auth } from "@/lib/auth";
 import data from "./data.json";
 
-export default function Page() {
+export default async function Page() {
+    const session = await auth();
+    if (!session) return <div>Not authenticated</div>;
     return (
         <SidebarProvider
             style={
