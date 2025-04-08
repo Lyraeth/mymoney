@@ -23,7 +23,8 @@
             "@/components/*": ["./components/*"],
             "@/lib/*": ["./lib/*"],
             "@/type/*": ["./lib/type/*"],
-            "@/auth": ["./lib/auth.ts"]
+            "@/auth": ["./lib/auth.ts"],
+            "@/prisma": ["./lib/prisma.ts"]
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
