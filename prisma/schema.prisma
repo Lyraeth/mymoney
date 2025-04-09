@@ -51,6 +51,7 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    Wallet        Wallet[]
 
     @@map("users")
 }
@@ -62,4 +63,13 @@ model VerificationToken {
 
     @@unique([identifier, token])
     @@map("verification_tokens")
+}
+
+model Wallet {
+    id      String @id @default(cuid())
+    name    String @unique
+    balance Float
+    userId  String @map("user_id")
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
