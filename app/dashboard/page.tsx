@@ -1,39 +1,47 @@
-import { AppSidebar } from "@/components/app-sidebar";
-import { ChartAreaInteractive } from "@/components/chart-area-interactive";
-import { DataTable } from "@/components/data-table";
-import { SectionCards } from "@/components/section-cards";
-import { SiteHeader } from "@/components/site-header";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import CardWallet from "@/components/card-wallet";
+import SkeletonCard from "@/components/card-wallet-skeleton";
+import { ModeToggle } from "@/components/theme-changer";
+import { ArrowLeftIcon } from "@/components/ui/arrow-left";
+import { Button } from "@/components/ui/button";
+import AddWalletButton from "@/components/wallet-add-button";
 import { auth } from "@/lib/auth";
-import data from "./data.json";
+import Link from "next/link";
+import { Suspense } from "react";
 
-export default async function Page() {
+export default async function Dashboard() {
     const session = await auth();
-    if (!session) return <div>Not authenticated</div>;
+
+    if (!session)
+        return (
+            <main className="flex justify-center items-center min-h-dvh w-full">
+                <h1>Not Authenticated</h1>
+            </main>
+        );
+
     return (
-        <SidebarProvider
-            style={
-                {
-                    "--sidebar-width": "calc(var(--spacing) * 72)",
-                    "--header-height": "calc(var(--spacing) * 12)",
-                } as React.CSSProperties
-            }
-        >
-            <AppSidebar variant="inset" />
-            <SidebarInset>
-                <SiteHeader />
-                <div className="flex flex-1 flex-col">
-                    <div className="@container/main flex flex-1 flex-col gap-2">
-                        <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-                            <SectionCards />
-                            <div className="px-4 lg:px-6">
-                                <ChartAreaInteractive />
-                            </div>
-                            <DataTable data={data} />
-                        </div>
+        <main className="w-full min-h-dvh">
+            <header className="p-5 border-b">
+                <nav className="flex flex-row gap-2 justify-between items-center">
+                    <Button asChild>
+                        <Link href={"/"}>
+                            <ArrowLeftIcon />
+                        </Link>
+                    </Button>
+                    <div className="flex text-sm md:text-xl xl:text-xl text-center">
+                        <h1 className="text-teal-400">MyMoney</h1>
                     </div>
+                    <ModeToggle />
+                </nav>
+            </header>
+            <div className="flex flex-col border-b">
+                <div className="flex flex-row px-5 py-2 justify-between items-center w-full border-b">
+                    <p>Your Wallet</p>
+                    <AddWalletButton />
                 </div>
-            </SidebarInset>
-        </SidebarProvider>
+                <Suspense fallback={<SkeletonCard />}>
+                    <CardWallet />
+                </Suspense>
+            </div>
+        </main>
     );
 }
