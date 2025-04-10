@@ -3,7 +3,7 @@ import SkeletonCard from "@/components/card-wallet-skeleton";
 import { ModeToggle } from "@/components/theme-changer";
 import { ArrowLeftIcon } from "@/components/ui/arrow-left";
 import { Button } from "@/components/ui/button";
-import AddWalletButton from "@/components/wallet-add-button";
+import { DrawerDialogAddWallet } from "@/components/wallet-add-button";
 import { auth } from "@/lib/auth";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -42,7 +42,7 @@ export default async function Dashboard() {
             <div className="flex flex-col border-b">
                 <div className="flex flex-row px-5 py-2 justify-between items-center w-full border-b">
                     <p>Your Wallet</p>
-                    <AddWalletButton />
+                    <DrawerDialogAddWallet />
                 </div>
                 <div className="flex h-6 items-end font-mono text-xs/6 whitespace-pre-line break-words text-black/50 max-sm:px-4 sm:h-10 dark:text-white/35 px-5 pt-1 border-b mt-15 md:mt-5 lg:mt-0">
                     These are your wallets. Add a new one via the ➕ on top

@@ -4,8 +4,6 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import { auth } from "@/lib/auth";
-import prisma from "@/lib/prisma";
 
 import {
     ContextMenu,
@@ -13,15 +11,22 @@ import {
     ContextMenuItem,
     ContextMenuTrigger,
 } from "@/components/ui/context-menu";
+import { auth } from "@/lib/auth";
+import prisma from "@/lib/prisma";
 
 export default async function CardWallet() {
     const session = await auth();
 
+    if (!session) {
+        return null;
+    }
+
     const data = await prisma.wallet.findMany({
         where: {
-            userId: session?.user?.id,
+            userId: session.user?.id,
         },
     });
+
     return (
         <div className="flex flex-1 flex-col">
             <div className="@container/main flex flex-1 flex-col gap-2">
