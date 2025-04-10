@@ -19,6 +19,14 @@ import {
     DrawerTitle,
     DrawerTrigger,
 } from "@/components/ui/drawer";
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CirclePlus } from "lucide-react";
@@ -27,8 +35,6 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useMediaQuery } from "usehooks-ts";
 import { z } from "zod";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form";
-import { Input } from "./ui/input";
 
 const formSchema = z.object({
     name: z
@@ -115,7 +121,7 @@ function ProfileForm({ className }: React.ComponentProps<"form">) {
                 throw new Error(errorData.error || "Something went wrong");
             }
 
-            toast("Add Wallet successfully, please refresh the table");
+            toast("Add Wallet successfully!");
             setSubmit(false);
             form.reset();
         } catch (error) {

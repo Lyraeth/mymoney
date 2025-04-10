@@ -1,3 +1,5 @@
+"use client";
+
 import {
     Card,
     CardDescription,
@@ -11,28 +13,34 @@ import {
     ContextMenuItem,
     ContextMenuTrigger,
 } from "@/components/ui/context-menu";
-import { auth } from "@/lib/auth";
-import prisma from "@/lib/prisma";
+import { Wallet } from "@/lib/type/Wallet";
+import { useEffect, useState } from "react";
 
-export default async function CardWallet() {
-    const session = await auth();
+export default function CardWallet() {
+    const [wallets, setWallets] = useState([]);
 
-    if (!session) {
-        return null;
-    }
-
-    const data = await prisma.wallet.findMany({
-        where: {
-            userId: session.user?.id,
-        },
-    });
+    useEffect(() => {
+        const fetchWallet = async () => {
+            try {
+                const response = await fetch("/api/wallet");
+                if (!response.ok) {
+                    throw new Error("Failed to fetch wallets");
+                }
+                const data = await response.json();
+                setWallets(data);
+            } catch (error) {
+                console.error("Error fetching wallets:", error);
+            }
+        };
+        fetchWallet();
+    }, []);
 
     return (
         <div className="flex flex-1 flex-col">
             <div className="@container/main flex flex-1 flex-col gap-2">
                 <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
                     <div className="*:data-[slot=card]:shadow-xs @xl/main:grid-cols-2 @5xl/main:grid-cols-4 grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card lg:px-6">
-                        {data.map((wallet) => (
+                        {wallets.map((wallet: Wallet) => (
                             <Card
                                 className="@container/card hover:scale-102"
                                 key={wallet.id}
