@@ -60,8 +60,8 @@ export function DrawerDialogAddWallet() {
                     <DialogHeader>
                         <DialogTitle>Add Wallet</DialogTitle>
                         <DialogDescription>
-                            Add wallet to your profile here. Click submit when
-                            you're done.
+                            {` Add wallet to your profile here. Click submit when
+                            you're done.`}
                         </DialogDescription>
                     </DialogHeader>
                     <ProfileForm />
@@ -81,8 +81,8 @@ export function DrawerDialogAddWallet() {
                 <DrawerHeader className="text-left">
                     <DrawerTitle>Add Wallet</DrawerTitle>
                     <DrawerDescription>
-                        Add wallet to your profile here. Click submit when
-                        you're done.
+                        {`Add wallet to your profile here. Click submit when
+                        you're done.`}
                     </DrawerDescription>
                 </DrawerHeader>
                 <ProfileForm className="px-4" />

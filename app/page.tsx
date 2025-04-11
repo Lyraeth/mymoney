@@ -1,6 +1,6 @@
 import { SignIn } from "@/components/auth/signin-button";
 import { SignOut } from "@/components/auth/signout-button";
-import DashboardButton from "@/components/dashboard-button";
+import DashboardButton from "@/components/dashboard/dashboard-button";
 import { ModeToggle } from "@/components/theme-changer";
 import { GithubIcon } from "@/components/ui/github";
 import { auth } from "@/lib/auth";

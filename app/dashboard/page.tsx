@@ -1,9 +1,9 @@
-import CardWallet from "@/components/card-wallet";
+import CardWallet from "@/components/wallet/wallet-card";
 import SkeletonCard from "@/components/card-wallet-skeleton";
 import { ModeToggle } from "@/components/theme-changer";
 import { ArrowLeftIcon } from "@/components/ui/arrow-left";
 import { Button } from "@/components/ui/button";
-import { DrawerDialogAddWallet } from "@/components/wallet-add-button";
+import { DrawerDialogAddWallet } from "@/components/wallet/wallet-button-add";
 import { auth } from "@/lib/auth";
 import Link from "next/link";
 import { Suspense } from "react";
