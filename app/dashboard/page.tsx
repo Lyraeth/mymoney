@@ -1,12 +1,10 @@
-import CardWallet from "@/components/wallet/wallet-card";
-import SkeletonCard from "@/components/card-wallet-skeleton";
 import { ModeToggle } from "@/components/theme-changer";
 import { ArrowLeftIcon } from "@/components/ui/arrow-left";
 import { Button } from "@/components/ui/button";
 import { DrawerDialogAddWallet } from "@/components/wallet/wallet-button-add";
+import CardWallet from "@/components/wallet/wallet-card";
 import { auth } from "@/lib/auth";
 import Link from "next/link";
-import { Suspense } from "react";
 
 export default async function Dashboard() {
     const session = await auth();
@@ -49,10 +47,7 @@ export default async function Dashboard() {
                     right, or right-click a card to view, edit, or delete your
                     wallet.
                 </div>
-
-                <Suspense fallback={<SkeletonCard />}>
-                    <CardWallet />
-                </Suspense>
+                <CardWallet />
             </div>
         </main>
     );
