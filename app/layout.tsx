@@ -1,6 +1,5 @@
-import { ThemeProvider } from "@/components/theme-provider";
-import { Toaster } from "@/components/ui/sonner";
-import type { Metadata } from "next";
+// app/layout.tsx
+import { Providers } from "@/app/providers";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -14,7 +13,7 @@ const geistMono = Geist_Mono({
     subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
+export const metadata = {
     title: "MyMoney",
     description: "Manage your money flow",
 };
@@ -29,15 +28,7 @@ export default function RootLayout({
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased font-mono relative top-0 bottom-0 left-0 right-0 w-full min-h-svh`}
             >
-                <ThemeProvider
-                    attribute="class"
-                    defaultTheme="system"
-                    enableSystem
-                    disableTransitionOnChange
-                >
-                    {children}
-                    <Toaster />
-                </ThemeProvider>
+                <Providers>{children}</Providers>
             </body>
         </html>
     );
