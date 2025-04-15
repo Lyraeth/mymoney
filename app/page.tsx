@@ -1,14 +1,10 @@
-import { SignIn } from "@/components/auth/signin-button";
-import { SignOut } from "@/components/auth/signout-button";
-import DashboardButton from "@/components/dashboard/dashboard-button";
+import UserAuth from "@/components/home/user-auth";
 import { ModeToggle } from "@/components/theme-changer";
 import { GithubIcon } from "@/components/ui/github";
-import { auth } from "@/lib/auth";
 import { ArrowUpRight, Heart } from "lucide-react";
 import Link from "next/link";
 
-export default async function Home() {
-    const session = await auth();
+export default function Home() {
     return (
         <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-mono">
             <header className="absolute top-4 right-4">
@@ -34,18 +30,8 @@ export default async function Home() {
                         Welcome to{" "}
                         <p className="inline-flex text-teal-400">MyMoney</p>{" "}
                     </h1>
+                    <UserAuth />
                 </div>
-                {!session ? (
-                    <SignIn />
-                ) : (
-                    <div className="flex flex-col gap-8 justify-center items-center w-full">
-                        <p>{session.user?.name}</p>
-                        <div className="flex flex-row gap-4 justify-between">
-                            <DashboardButton />
-                            <SignOut />
-                        </div>
-                    </div>
-                )}
             </main>
             <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
                 <h1>
