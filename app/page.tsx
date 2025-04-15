@@ -30,8 +30,8 @@ export default function Home() {
                         Welcome to{" "}
                         <p className="inline-flex text-teal-400">MyMoney</p>{" "}
                     </h1>
-                    <UserAuth />
                 </div>
+                <UserAuth />
             </main>
             <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
                 <h1>
