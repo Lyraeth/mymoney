@@ -16,12 +16,13 @@ import {
     FormField,
     FormItem,
     FormLabel,
+    FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Plus } from "lucide-react";
+import { LoaderCircle, Plus } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -31,13 +32,16 @@ const formSchema = z.object({
         .string()
         .min(2, { message: "Name wallet must be at least 2 characters." })
         .max(50, { message: "Name wallet maximal 50 characters." }),
-    balance: z.preprocess((val) => parseFloat(String(val)), z.number()),
+    balance: z.preprocess(
+        (val) => parseFloat(String(val)),
+        z.number({ message: "Balance must be a Number" })
+    ),
 }) as z.ZodType<{
     name: string;
     balance: number;
 }>;
 
-export function AddWalletCard() {
+export function AddWalletDialog() {
     const queryClient = useQueryClient();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -72,9 +76,10 @@ export function AddWalletCard() {
 
     return (
         <Dialog>
-            <DialogTrigger className="flex flex-row justify-center items-center h-full text-muted-foreground gap-2">
-                <Plus />
-                Add Wallet
+            <DialogTrigger asChild>
+                <Button>
+                    <Plus />
+                </Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
@@ -99,6 +104,7 @@ export function AddWalletCard() {
                                             {...field}
                                         />
                                     </FormControl>
+                                    <FormMessage />
                                 </FormItem>
                             )}
                         />
@@ -111,12 +117,17 @@ export function AddWalletCard() {
                                     <FormControl>
                                         <Input placeholder="0" {...field} />
                                     </FormControl>
+                                    <FormMessage />
                                 </FormItem>
                             )}
                         />
                         <DialogFooter>
                             <Button type="submit" disabled={isPending}>
-                                {isPending ? "Submitting..." : "Submit"}
+                                {isPending ? (
+                                    <LoaderCircle className="animate-spin" />
+                                ) : (
+                                    "Submit"
+                                )}
                             </Button>
                         </DialogFooter>
                     </form>

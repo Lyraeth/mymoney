@@ -1,17 +1,14 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
 import {
     Card,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import { AddWalletCard } from "@/components/wallet/wallet-card-add";
+import { DeleteWalletDialog } from "@/components/wallet/wallet-dialog-delete";
 import { Wallet } from "@/lib/type/Wallet";
 import { useQuery } from "@tanstack/react-query";
-import { MoreHorizontal, TrendingUpIcon } from "lucide-react";
 
 async function fetchWallets(): Promise<Wallet[]> {
     const res = await fetch("/api/wallet");
@@ -27,10 +24,6 @@ export default function WalletCardData() {
 
     return (
         <>
-            <Card className="@container/card hover:scale-102 transition">
-                <AddWalletCard />
-            </Card>
-
             {isLoading ? (
                 <div className="flex items-center h-full text-muted-foreground">
                     Loading wallets...
@@ -47,15 +40,10 @@ export default function WalletCardData() {
                                 Rp.{wallet.balance}
                             </CardTitle>
                             <div className="absolute right-4">
-                                <Badge
-                                    variant="outline"
-                                    className="flex gap-1 rounded-lg text-xs"
-                                >
-                                    <MoreHorizontal className="size-3" />
-                                </Badge>
+                                <DeleteWalletDialog id={wallet.id} />
                             </div>
                         </CardHeader>
-                        <CardFooter className="flex-col items-start gap-1 text-sm">
+                        {/* <CardFooter className="flex-col items-start gap-1 text-sm">
                             <div className="line-clamp-1 flex gap-2 font-medium">
                                 Trending up this month{" "}
                                 <TrendingUpIcon className="size-4" />
@@ -63,7 +51,7 @@ export default function WalletCardData() {
                             <div className="text-muted-foreground">
                                 Visitors for the last 6 months
                             </div>
-                        </CardFooter>
+                        </CardFooter> */}
                     </Card>
                 ))
             )}
