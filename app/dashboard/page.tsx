@@ -1,4 +1,6 @@
 import { ModeToggle } from "@/components/theme-changer";
+import { AddTransactionDialog } from "@/components/transaction/transaction-dialog-add";
+import TableTransactionData from "@/components/transaction/transaction-table-data";
 import { Button } from "@/components/ui/button";
 import CardWallet from "@/components/wallet/wallet-card";
 import { AddWalletDialog } from "@/components/wallet/wallet-dialog-add";
@@ -47,6 +49,17 @@ export default async function Dashboard() {
                     or click a trash on top-right card to delete your wallet.
                 </div>
                 <CardWallet />
+            </div>
+            <div className="flex flex-col border-b">
+                <div className="flex flex-row px-5 py-3 justify-between items-center w-full border-b">
+                    <p>Transaction</p>
+                    <AddTransactionDialog />
+                </div>
+                <div className="flex h-6 items-end font-mono text-xs/6 whitespace-pre-line break-words text-black/50 max-sm:px-4 sm:h-10 dark:text-white/35 px-5 pt-1 border-b mt-15 md:mt-5 lg:mt-0">
+                    These are your transaction. Add a new one via the ➕
+                    top-right.
+                </div>
+                <TableTransactionData />
             </div>
         </main>
     );
