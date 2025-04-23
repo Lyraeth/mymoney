@@ -108,7 +108,7 @@ export function AddTransactionDialog() {
             if (!res.ok) throw new Error("Failed to create transaction");
         },
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["transaction"] });
+            queryClient.invalidateQueries({ queryKey: ["transactions"] });
             toast.success("Transaction success!");
             form.reset();
         },

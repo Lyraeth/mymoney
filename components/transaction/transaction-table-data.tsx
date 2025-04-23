@@ -23,7 +23,7 @@ export default function TableTransactionData() {
             {isLoading ? (
                 <div className="p-5">
                     <div className="flex items-center h-full text-muted-foreground">
-                        <Skeleton className="w-[405px] h-[262px] md:w-[1004px] xl:w-[1420px]" />
+                        <Skeleton className="w-[405px] h-[100px] md:w-[1004px] xl:w-[1420px]" />
                     </div>
                 </div>
             ) : (

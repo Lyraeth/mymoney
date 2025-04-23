@@ -1,5 +1,6 @@
 "use client";
 
+import { TransactionDeleteDialog } from "@/components/transaction/transaction-dialog-delete";
 import { Button } from "@/components/ui/button";
 import { Transaction } from "@/lib/type/Transaction";
 import { ColumnDef } from "@tanstack/react-table";
@@ -106,5 +107,13 @@ export const columns: ColumnDef<Transaction>[] = [
     {
         accessorKey: "note",
         header: "Note",
+    },
+    {
+        id: "action",
+        header: "Actions",
+        cell: ({ row }) => {
+            const crud = row.original.id;
+            return <TransactionDeleteDialog id={crud} />;
+        },
     },
 ];

@@ -12,21 +12,21 @@ import { Check, LoaderCircle, Trash2, X } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
-export function DeleteWalletDialog({ id }: { id: string }) {
+export function TransactionDeleteDialog({ id }: { id: string }) {
     const queryClient = useQueryClient();
     const [open, setOpen] = useState(false);
 
     const { mutate, isPending } = useMutation({
         mutationFn: async (id: string) => {
-            const res = await fetch(`/api/wallet/${id}`, {
+            const res = await fetch(`/api/transaction/${id}`, {
                 method: "DELETE",
             });
 
-            if (!res.ok) throw new Error("Failed to delete wallet");
+            if (!res.ok) throw new Error("Failed to delete transaction");
         },
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["wallets"] });
-            toast.success("Wallet delete!");
+            queryClient.invalidateQueries({ queryKey: ["transactions"] });
+            toast.success("Transaction delete!");
             setOpen(false);
         },
     });
@@ -44,7 +44,7 @@ export function DeleteWalletDialog({ id }: { id: string }) {
                 </DialogHeader>
                 <p className="text-sm text-muted-foreground">
                     This action cannot be undone. This will permanently delete
-                    the wallet.
+                    the transaction.
                 </p>
                 <DialogFooter className="flex flex-row gap-2 justify-end">
                     <Button

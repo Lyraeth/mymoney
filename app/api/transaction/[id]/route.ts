@@ -16,11 +16,11 @@ export async function DELETE(
         );
     }
 
-    await prisma.wallet.delete({
+    await prisma.transaction.delete({
         where: {
             id: id,
         },
     });
 
-    return NextResponse.json("Wallet deleted!");
+    return NextResponse.json("Transaction deleted!");
 }

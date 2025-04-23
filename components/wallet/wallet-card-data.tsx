@@ -10,6 +10,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { DeleteWalletDialog } from "@/components/wallet/wallet-dialog-delete";
 import { Wallet } from "@/lib/type/Wallet";
 import { useQuery } from "@tanstack/react-query";
+import { AnimatePresence, motion } from "framer-motion";
 
 async function fetchWallets(): Promise<Wallet[]> {
     const res = await fetch("/api/wallet");
@@ -32,35 +33,40 @@ export default function WalletCardData() {
                     </div>
                 </div>
             ) : (
-                wallets.map((wallet) => (
-                    <Card
-                        key={wallet.id}
-                        className="@container/card hover:scale-102 transition"
-                    >
-                        <CardHeader className="relative">
-                            <CardDescription>{wallet.name}</CardDescription>
-                            <CardTitle className="@[250px]/card:text-3xl text-2xl font-semibold tabular-nums">
-                                {new Intl.NumberFormat("id-ID", {
-                                    style: "currency",
-                                    currency: "IDR",
-                                    maximumFractionDigits: 0,
-                                }).format(wallet.balance)}
-                            </CardTitle>
-                            <div className="absolute right-4">
-                                <DeleteWalletDialog id={wallet.id} />
-                            </div>
-                        </CardHeader>
-                        {/* <CardFooter className="flex-col items-start gap-1 text-sm">
-                            <div className="line-clamp-1 flex gap-2 font-medium">
-                                Trending up this month{" "}
-                                <TrendingUpIcon className="size-4" />
-                            </div>
-                            <div className="text-muted-foreground">
-                                Visitors for the last 6 months
-                            </div>
-                        </CardFooter> */}
-                    </Card>
-                ))
+                <AnimatePresence>
+                    {wallets.map((wallet) => (
+                        <Card
+                            className="@container/card hover:scale-102 transition"
+                            key={wallet.id}
+                        >
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                                transition={{
+                                    duration: 0.3,
+                                    ease: "easeInOut",
+                                }}
+                            >
+                                <CardHeader className="relative">
+                                    <CardDescription>
+                                        {wallet.name}
+                                    </CardDescription>
+                                    <CardTitle className="@[250px]/card:text-3xl text-2xl font-semibold tabular-nums">
+                                        {new Intl.NumberFormat("id-ID", {
+                                            style: "currency",
+                                            currency: "IDR",
+                                            maximumFractionDigits: 0,
+                                        }).format(wallet.balance)}
+                                    </CardTitle>
+                                    <div className="absolute right-4">
+                                        <DeleteWalletDialog id={wallet.id} />
+                                    </div>
+                                </CardHeader>
+                            </motion.div>
+                        </Card>
+                    ))}
+                </AnimatePresence>
             )}
         </>
     );
