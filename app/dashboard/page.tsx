@@ -55,7 +55,7 @@ export default async function Dashboard() {
                     <p>Transaction</p>
                     <AddTransactionDialog />
                 </div>
-                <div className="flex h-6 items-end font-mono text-xs/6 whitespace-pre-line break-words text-black/50 max-sm:px-4 sm:h-10 dark:text-white/35 px-5 pt-1 border-b mt-15 md:mt-5 lg:mt-0">
+                <div className="flex h-6 items-end font-mono text-xs/6 whitespace-pre-line break-words text-black/50 max-sm:px-4 sm:h-10 dark:text-white/35 px-5 pt-1 border-b mt-8 md:mt-0 lg:mt-0">
                     These are your transaction. Add a new one via the ➕
                     top-right.
                 </div>

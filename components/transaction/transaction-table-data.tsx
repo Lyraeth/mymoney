@@ -2,6 +2,7 @@
 
 import { columns } from "@/components/transaction/columns";
 import { DataTable } from "@/components/transaction/data-table";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Transaction } from "@/lib/type/Transaction";
 import { useQuery } from "@tanstack/react-query";
 
@@ -22,7 +23,7 @@ export default function TableTransactionData() {
             {isLoading ? (
                 <div className="p-5">
                     <div className="flex items-center h-full text-muted-foreground">
-                        Loading transaction...
+                        <Skeleton className="w-[405px] h-[262px] md:w-[1004px] xl:w-[1420px]" />
                     </div>
                 </div>
             ) : (

@@ -54,8 +54,14 @@ export const columns: ColumnDef<Transaction>[] = [
             );
         },
         cell: ({ row }) => {
-            const money = row.original.amount;
-            return `Rp. ${money}`;
+            const amount = parseFloat(row.getValue("amount"));
+            const formatted = new Intl.NumberFormat("id-ID", {
+                style: "currency",
+                currency: "IDR",
+                maximumFractionDigits: 0,
+            }).format(amount);
+
+            return `${formatted}`;
         },
     },
     {

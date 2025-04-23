@@ -25,7 +25,6 @@ import {
     FormField,
     FormItem,
     FormLabel,
-    FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
@@ -63,21 +62,19 @@ const typeEnum = [
 
 const formSchema = z.object({
     name: z.string(),
-    type: z.string({
-        required_error: "Please select a type.",
-    }),
+    type: z.string(),
     amount: z.preprocess(
         (val) => parseFloat(String(val)),
-        z.number({ message: "Balance must be a Number" })
+        z.number({
+            message: "Balance must be a Number",
+        })
     ),
-    walletId: z.string({
-        required_error: "Please select a type.",
-    }),
+    walletId: z.string(),
     note: z.string().optional(),
     date: z.date(),
 }) as z.ZodType<{
     name: string;
-    type: "income" | "expanses";
+    type: string;
     amount: number;
     walletId: string;
     note: string;
@@ -94,12 +91,6 @@ export function AddTransactionDialog() {
     const queryClient = useQueryClient();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
-        defaultValues: {
-            name: "",
-            amount: 0,
-            walletId: "",
-            note: "",
-        },
     });
 
     const { data: wallets = [] } = useQuery({
@@ -163,7 +154,6 @@ export function AddTransactionDialog() {
                                                 {...field}
                                             />
                                         </FormControl>
-                                        <FormMessage />
                                     </FormItem>
                                 )}
                             />
@@ -243,7 +233,6 @@ export function AddTransactionDialog() {
                                                 </Command>
                                             </PopoverContent>
                                         </Popover>
-                                        <FormMessage />
                                     </FormItem>
                                 )}
                             />
@@ -256,7 +245,6 @@ export function AddTransactionDialog() {
                                         <FormControl>
                                             <Input placeholder="0" {...field} />
                                         </FormControl>
-                                        <FormMessage />
                                     </FormItem>
                                 )}
                             />
@@ -341,7 +329,6 @@ export function AddTransactionDialog() {
                                                 </Command>
                                             </PopoverContent>
                                         </Popover>
-                                        <FormMessage />
                                     </FormItem>
                                 )}
                             />
@@ -357,7 +344,6 @@ export function AddTransactionDialog() {
                                                 {...field}
                                             />
                                         </FormControl>
-                                        <FormMessage />
                                     </FormItem>
                                 )}
                             />
@@ -410,7 +396,6 @@ export function AddTransactionDialog() {
                                                 />
                                             </PopoverContent>
                                         </Popover>
-                                        <FormMessage />
                                     </FormItem>
                                 )}
                             />
