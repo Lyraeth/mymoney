@@ -22,5 +22,5 @@ export async function DELETE(
         },
     });
 
-    return NextResponse.json("Delete wallet success!");
+    return NextResponse.json("Wallet deleted!");
 }

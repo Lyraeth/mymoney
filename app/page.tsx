@@ -28,7 +28,9 @@ export default function Home() {
                 <div className="flex justify-center w-full text-3xl">
                     <h1>
                         Welcome to{" "}
-                        <p className="inline-flex text-teal-400">MyMoney</p>{" "}
+                        <p className="inline-flex text-teal-400 hover:underline">
+                            MyMoney
+                        </p>{" "}
                     </h1>
                 </div>
                 <UserAuth />
@@ -40,7 +42,7 @@ export default function Home() {
                     <Link
                         href={"https://github.com/lyraeth"}
                         target="_blank"
-                        className="inline-flex font-medium text-yellow-300"
+                        className="inline-flex font-medium text-yellow-300 hover:underline hover:underline-offset-2"
                     >
                         Lyraeth
                     </Link>

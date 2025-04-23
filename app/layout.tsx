@@ -1,4 +1,3 @@
-// app/layout.tsx
 import { Providers } from "@/app/providers";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
