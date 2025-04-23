@@ -1,4 +1,5 @@
 import { Providers } from "@/app/providers";
+import { Analytics } from "@vercel/analytics/react";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -27,7 +28,10 @@ export default function RootLayout({
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased font-mono relative top-0 bottom-0 left-0 right-0 w-full min-h-svh`}
             >
-                <Providers>{children}</Providers>
+                <Providers>
+                    {children}
+                    <Analytics />
+                </Providers>
             </body>
         </html>
     );
