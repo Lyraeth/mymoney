@@ -12,7 +12,7 @@ export async function GET() {
         );
     }
 
-    const response = await prisma.transaction.findMany({
+    const transactions = await prisma.transaction.findMany({
         where: {
             user: {
                 email: session?.user?.email,
@@ -26,6 +26,11 @@ export async function GET() {
             },
         },
     });
+
+    const response = transactions.map((tx) => ({
+        ...tx,
+        amount: tx.amount.toNumber(),
+    }));
 
     return NextResponse.json(response);
 }

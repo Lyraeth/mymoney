@@ -91,6 +91,14 @@ export function AddTransactionDialog() {
     const queryClient = useQueryClient();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
+        defaultValues: {
+            name: "",
+            type: "",
+            amount: 0,
+            walletId: "",
+            note: "",
+            date: new Date(),
+        },
     });
 
     const { data: wallets = [] } = useQuery({

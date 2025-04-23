@@ -12,11 +12,16 @@ export async function GET() {
         );
     }
 
-    const response = await prisma.wallet.findMany({
+    const wallets = await prisma.wallet.findMany({
         where: {
             userId: session?.user?.id,
         },
     });
+
+    const response = wallets.map((wallet) => ({
+        ...wallet,
+        balance: wallet.balance.toNumber(),
+    }));
 
     return NextResponse.json(response);
 }

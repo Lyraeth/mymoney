@@ -67,10 +67,10 @@ model VerificationToken {
 }
 
 model Wallet {
-    id      String @id @default(cuid())
-    name    String @unique
-    balance Float
-    userId  String @map("user_id")
+    id      String  @id @default(cuid())
+    name    String  @unique
+    balance Decimal
+    userId  String  @map("user_id")
 
     user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
     Transaction Transaction[]
@@ -81,7 +81,7 @@ model Transaction {
     name       String
     userId     String   @map("user_id")
     type       String
-    amount     Float
+    amount     Decimal
     walletId   String   @map("wallet_id")
     note       String
     date       DateTime
