@@ -68,12 +68,14 @@ model VerificationToken {
 
 model Wallet {
     id      String  @id @default(cuid())
-    name    String  @unique
+    name    String
     balance Decimal
     userId  String  @map("user_id")
 
     user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
     Transaction Transaction[]
+
+    @@index([name])
 }
 
 model Transaction {
