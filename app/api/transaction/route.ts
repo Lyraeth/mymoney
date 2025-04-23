@@ -1,5 +1,6 @@
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
@@ -48,24 +49,48 @@ export async function POST(request: NextRequest) {
     }
 
     try {
-        await prisma.transaction.create({
-            data: {
-                name: name,
-                user: {
-                    connect: {
-                        id: session.user?.id,
+        await prisma.$transaction(async (txClient) => {
+            const tx = await txClient.transaction.create({
+                data: {
+                    name,
+                    user: {
+                        connect: {
+                            id: session.user?.id,
+                        },
                     },
-                },
-                type: type,
-                amount: amount,
-                wallet: {
-                    connect: {
-                        id: walletId,
+                    type,
+                    amount,
+                    wallet: {
+                        connect: {
+                            id: walletId,
+                        },
                     },
+                    note,
+                    date,
                 },
-                note: note,
-                date: date,
-            },
+            });
+
+            const wallet = await txClient.wallet.findUnique({
+                where: {
+                    id: walletId,
+                },
+                select: {
+                    balance: true,
+                },
+            });
+
+            let balanceNow = wallet?.balance || new Prisma.Decimal(0);
+
+            if (tx.type === "income") {
+                balanceNow = balanceNow.plus(tx.amount);
+            } else {
+                balanceNow = balanceNow.minus(tx.amount);
+            }
+
+            await txClient.wallet.update({
+                where: { id: walletId },
+                data: { balance: balanceNow },
+            });
         });
     } catch (error) {
         const errorMessage =

@@ -26,6 +26,7 @@ export function TransactionDeleteDialog({ id }: { id: string }) {
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["transactions"] });
+            queryClient.invalidateQueries({ queryKey: ["wallets"] });
             toast.success("Transaction delete!");
             setOpen(false);
         },
