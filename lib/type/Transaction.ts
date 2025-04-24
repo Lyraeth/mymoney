@@ -5,7 +5,7 @@ export interface Transaction {
     name: string;
     userId: string;
     user: User;
-    type: "income" | "expanses";
+    type: "income" | "expanses" | "transfer";
     amount: number;
     walletId: string;
     wallet: Wallet;
