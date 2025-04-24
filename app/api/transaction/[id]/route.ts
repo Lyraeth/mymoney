@@ -26,6 +26,7 @@ export async function DELETE(
                 select: {
                     amount: true,
                     walletId: true,
+                    type: true,
                 },
             });
 
@@ -40,7 +41,11 @@ export async function DELETE(
 
             let balanceNow = wallet?.balance || new Prisma.Decimal(0);
 
-            balanceNow = balanceNow.plus(tx.amount);
+            if (tx.type === "income") {
+                balanceNow = balanceNow.minus(tx.amount);
+            } else {
+                balanceNow = balanceNow.plus(tx.amount);
+            }
 
             await txClient.wallet.update({
                 where: { id: tx.walletId },
