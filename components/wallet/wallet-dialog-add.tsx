@@ -20,6 +20,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { LoaderCircle, Plus } from "lucide-react";
@@ -75,11 +81,20 @@ export function AddWalletDialog() {
 
     return (
         <Dialog>
-            <DialogTrigger asChild>
-                <Button>
-                    <Plus />
-                </Button>
-            </DialogTrigger>
+            <TooltipProvider>
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <DialogTrigger asChild>
+                            <Button>
+                                <Plus />
+                            </Button>
+                        </DialogTrigger>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                        <p>Add Wallet</p>
+                    </TooltipContent>
+                </Tooltip>
+            </TooltipProvider>
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>Add Wallet</DialogTitle>
