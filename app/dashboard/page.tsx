@@ -34,7 +34,12 @@ export default async function Dashboard() {
                             MyMoney
                         </h1>
                     </div>
-                    <div className="flex justify-end">
+                    <div className="flex justify-end space-x-4">
+                        <div className="hidden md:flex">
+                            <Button variant={"outline"}>
+                                {session.user?.name}
+                            </Button>
+                        </div>
                         <ModeToggle />
                     </div>
                 </nav>
