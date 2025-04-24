@@ -94,7 +94,6 @@ export function AddTransactionDialog() {
         defaultValues: {
             name: "",
             type: "",
-            amount: 0,
             walletId: "",
             note: "",
             date: new Date(),

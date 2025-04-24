@@ -47,7 +47,6 @@ export function AddWalletDialog() {
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: "",
-            balance: 0,
         },
     });
 
